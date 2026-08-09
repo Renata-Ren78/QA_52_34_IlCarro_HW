@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.LoginPage;
 
-public class RegistrationTests extends AppManager {
+public class LoginTests extends AppManager {
 
     @BeforeMethod
     public void goToLoginPage(){

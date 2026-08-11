@@ -1,0 +1,29 @@
+package utils;
+
+import dto.UserLombok;
+import net.datafaker.Faker;
+
+public class UserFactory {
+    static Faker faker = new Faker();
+
+//    public static void main(String[] args) {
+//        String firstName = faker.name().firstName();
+//        System.out.println(firstName);
+//        String lastName = faker.name().lastName();
+//        System.out.println(lastName);
+//        String email = faker.internet().emailAddress();
+//        System.out.println(email);
+//    }
+
+    public static UserLombok positiveUser(){
+        UserLombok user = UserLombok.builder()
+                .username(faker.name().firstName())
+                .username(faker.name().lastName())
+                .username(faker.internet().emailAddress())
+                .password("ren_CER$123")
+                .build();
+        return user;
+    }
+
+
+}

@@ -8,10 +8,12 @@ import pages.HomePage;
 import pages.LoginPage;
 
 public class LoginTests extends AppManager {
+    LoginPage loginPage;
 
     @BeforeMethod
     public void goToLoginPage(){
         new HomePage(getDriver()).clickBtnLogin();
+        loginPage = new LoginPage(getDriver());
     }
 
 
@@ -21,8 +23,13 @@ public class LoginTests extends AppManager {
                 .username("renatae_test_new@gmail.com")
                 .password("ren_CER$123")
                 .build();
-        LoginPage loginPage = new LoginPage(getDriver());
+
         loginPage.typeLoginRegistrationForm(user);
+        loginPage.clickBtnYalla();
+    }
+
+    @Test
+    public void loginNegativeEmptyEmailFieldTest(){
         loginPage.clickBtnYalla();
     }
 }

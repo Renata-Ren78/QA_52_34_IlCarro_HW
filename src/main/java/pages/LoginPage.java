@@ -13,6 +13,7 @@ public class LoginPage extends BasePage {
                 (driver, 10), this);
     }
 
+
     @FindBy(xpath = "//input[@id='email']")
     WebElement inputEmail;
 
@@ -25,8 +26,15 @@ public class LoginPage extends BasePage {
     WebElement btnYalla;
     //@FindBy(xpath = "//button[text()='Y’alla!']"
 
+    @FindBy(xpath = "//div[text()=' Email is required ']")
+    WebElement messageEmailIsRequired;
 
 
+
+
+    public boolean validateTextInMessageEmailIsRequired(String text){
+       return isTextInElementPresent(messageEmailIsRequired,text);
+    }
 
 
     public void typeLoginRegistrationForm(UserLombok user) {

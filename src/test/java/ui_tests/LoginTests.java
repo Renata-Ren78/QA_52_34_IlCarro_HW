@@ -2,6 +2,7 @@ package ui_tests;
 
 import dto.UserLombok;
 import manager.AppManager;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.HomePage;
@@ -24,12 +25,17 @@ public class LoginTests extends AppManager {
                 .password("ren_CER$123")
                 .build();
 
+        LoginPage loginPage= new LoginPage(getDriver());
         loginPage.typeLoginRegistrationForm(user);
         loginPage.clickBtnYalla();
+
+//        Assert.assertTrue(new LoginPage(getDriver())
+//                .validateTextInMessageEmailIsRequired("Email is required"));
     }
 
     @Test
     public void loginNegativeEmptyEmailFieldTest(){
         loginPage.clickBtnYalla();
+
     }
 }

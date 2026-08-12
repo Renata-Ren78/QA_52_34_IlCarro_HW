@@ -29,11 +29,15 @@ public class LoginPage extends BasePage {
     @FindBy(xpath = "//div[text()=' Email is required ']")
     WebElement messageEmailIsRequired;
 
+    @FindBy(xpath = "//h1[text()='Logged in']")
+    WebElement popUpSuccessLogin;
+
+    @FindBy(xpath = "//h1[text()='Login failed']")
+    WebElement popUpLoginFailed;
 
 
-
-    public boolean validateTextInMessageEmailIsRequired(String text){
-       return isTextInElementPresent(messageEmailIsRequired,text);
+    public boolean validateTextInMessageEmailIsRequired(String text) {
+        return isTextInElementPresent(messageEmailIsRequired, text);
     }
 
 
@@ -45,5 +49,18 @@ public class LoginPage extends BasePage {
     public void clickBtnYalla() {
         btnYalla.click();
     }
+
+    public boolean isPopUpSeccessLoginDisplayed(){
+        return isElementDisplayed(popUpSuccessLogin);
+    }
+
+    public boolean isPopUpLoginFailedDisplayed(){
+        return isElementDisplayed(popUpLoginFailed);
+    }
+
+    public boolean isBtnYallaEnabled(){
+        return btnYalla.isEnabled();
+    }
+
 
 }

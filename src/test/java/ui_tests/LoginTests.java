@@ -42,7 +42,7 @@ public class LoginTests extends AppManager {
     }
 
     @Test
-    public void loginNegativeEmptyEmailFieldTest(){
+    public void loginNegativeEmptyEmailFieldsTest(){
         loginPage.clickBtnYalla();
 
     }
@@ -50,7 +50,8 @@ public class LoginTests extends AppManager {
     public void loginNegativeWrongEmailTest(){
         UserLombok user = UserLombok.builder()
                 .username("enatae_test_new@gmail.com")
-                .password("ren_CER$123")
+                .password(getProperty("base.properties",
+                        "password"))
                 .build();
 
         loginPage.typeLoginRegistrationForm(user);
@@ -61,7 +62,8 @@ public class LoginTests extends AppManager {
     @Test
     public void loginNegativeWrongPasswordTest(){
         UserLombok user = UserLombok.builder()
-                .username("renatae_test_new@gmail.com")
+                .username(getProperty("base.properties",
+                        "email"))
                 .password("ren_CER$1233")
                 .build();
 
@@ -93,6 +95,38 @@ public class LoginTests extends AppManager {
                 "validate message: Password is required");
         softAssert.assertAll();
     }
+
+    @Test
+    public void loginNegativeEmptyEmailFieldWithClickOnItTest(){
+        UserLombok user = UserLombok.builder()
+                .username("")
+                .password(getProperty("base.properties",
+                        "password"))
+                .build();
+
+        loginPage.typeLoginRegistrationForm(user);
+        loginPage.clickBtnYalla();
+        softAssert.assertFalse(loginPage.isBtnYallaEnabled(),
+                "validate isBtnYallaEnabled");
+        System.out.println("test working");
+    }
+
+    @Test
+    public void loginNegativeEmptyPasswordFieldWithClickOnItTest(){
+        UserLombok user = UserLombok.builder()
+                .username(getProperty("base.properties",
+                        "email"))
+                .password("")
+                .build();
+
+        loginPage.typeLoginRegistrationForm(user);
+        loginPage.clickBtnYalla();
+        softAssert.assertFalse(loginPage.isBtnYallaEnabled(),
+                "validate isBtnYallaEnabled");
+        System.out.println("test working");
+    }
+
+
 
 
 }

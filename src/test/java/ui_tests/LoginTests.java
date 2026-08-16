@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.HomePage;
 import pages.LoginPage;
+
 import static utils.PropertiesReader.*;
 
 public class LoginTests extends AppManager {
@@ -16,16 +17,14 @@ public class LoginTests extends AppManager {
 
 
     @BeforeMethod
-    public void goToLoginPage(){
+    public void goToLoginPage() {
         new HomePage(getDriver()).clickBtnLogin();
         loginPage = new LoginPage(getDriver());
     }
 
 
-
-
     @Test
-    public void loginPositiveTest(){
+    public void loginPositiveTest() {
         UserLombok user = UserLombok.builder()
                 .username(getProperty("base.properties",
                         "email"))
@@ -42,12 +41,13 @@ public class LoginTests extends AppManager {
     }
 
     @Test
-    public void loginNegativeEmptyEmailFieldsTest(){
+    public void loginNegativeEmptyEmailFieldsTest() {
         loginPage.clickBtnYalla();
 
     }
+
     @Test
-    public void loginNegativeWrongEmailTest(){
+    public void loginNegativeWrongEmailTest() {
         UserLombok user = UserLombok.builder()
                 .username("enatae_test_new@gmail.com")
                 .password(getProperty("base.properties",
@@ -60,7 +60,7 @@ public class LoginTests extends AppManager {
     }
 
     @Test
-    public void loginNegativeWrongPasswordTest(){
+    public void loginNegativeWrongPasswordTest() {
         UserLombok user = UserLombok.builder()
                 .username(getProperty("base.properties",
                         "email"))
@@ -73,13 +73,13 @@ public class LoginTests extends AppManager {
     }
 
     @Test
-    public void loginNegativeEmptyAllFieldsWithoutClickInFieldsTest(){
+    public void loginNegativeEmptyAllFieldsWithoutClickInFieldsTest() {
         loginPage.clickBtnYalla();
         Assert.assertFalse(loginPage.isBtnYallaEnabled());
     }
 
     @Test
-    public void loginNegativeEmptyAllFieldsWithClickInFieldsTest(){
+    public void loginNegativeEmptyAllFieldsWithClickInFieldsTest() {
         UserLombok user = UserLombok.builder()
                 .username("")
                 .password("")
@@ -97,7 +97,7 @@ public class LoginTests extends AppManager {
     }
 
     @Test
-    public void loginNegativeEmptyEmailFieldWithClickOnItTest(){
+    public void loginNegativeEmptyEmailFieldWithClickOnItTest() {
         UserLombok user = UserLombok.builder()
                 .username("")
                 .password(getProperty("base.properties",
@@ -112,18 +112,50 @@ public class LoginTests extends AppManager {
     }
 
     @Test
-    public void loginNegativeEmptyPasswordFieldWithClickOnItTest(){
+    public void loginNegativeEmptyPasswordFieldWithClickOnItTest() {
         UserLombok user = UserLombok.builder()
                 .username(getProperty("base.properties",
                         "email"))
                 .password("")
                 .build();
-
         loginPage.typeLoginRegistrationForm(user);
         loginPage.clickBtnYalla();
         softAssert.assertFalse(loginPage.isBtnYallaEnabled(),
                 "validate isBtnYallaEnabled");
         System.out.println("test working");
+    }
+
+
+    @Test
+    public void loginNegativeEmptyFieldPasswordTest() {
+        UserLombok user = UserLombok.builder()
+                .username(getProperty("base.properties",
+                        "email"))
+                .password("")
+                .build();
+        loginPage.typeLoginRegistrationForm(user);
+        loginPage.clickBtnYalla();
+        softAssert.assertFalse(loginPage.isBtnYallaEnabled(),
+                "validate isBtnYallaEnabled");
+        softAssert.assertTrue(loginPage.isTextInErrorPresent("Password is required"),
+                "validate message: Password is required");
+        softAssert.assertAll();
+    }
+
+    @Test
+    public void loginNegativeEmptyEmailTest() {
+        UserLombok user = UserLombok.builder()
+                .username("")
+                .password(getProperty("base.properties",
+                        "password"))
+                .build();
+        loginPage.typeLoginRegistrationForm(user);
+        loginPage.clickBtnYalla();
+        softAssert.assertFalse(loginPage.isBtnYallaEnabled(),
+                "validate isBtnYallaEnabled");
+        softAssert.assertTrue(loginPage.isTextInErrorPresent("Email is required"),
+                "validate message: Email is required");
+        softAssert.assertAll();
     }
 
 

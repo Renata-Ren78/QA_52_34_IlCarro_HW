@@ -18,11 +18,17 @@ public class HomePage extends BasePage{
 
     @FindBy(xpath = "//a[text()=' Log in ']")
     WebElement btnLogin;
+    @FindBy(xpath = "//a[text()=' Sign up ']")
+    WebElement btnSignup;
 
 
 
     public void clickBtnLogin(){
         btnLogin.click();
+    }
+
+    public void clickBtnSignUp(){
+        btnSignup.click();
     }
 
 

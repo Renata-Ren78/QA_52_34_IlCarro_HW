@@ -16,6 +16,8 @@ public abstract class BasePage {
         driver = wd;
     }
 
+
+
     @FindBy(xpath = "//div[@class='error']")
     List<WebElement> listErrors;
 

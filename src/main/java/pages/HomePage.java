@@ -20,9 +20,15 @@ public class HomePage extends BasePage{
     WebElement btnLogin;
     @FindBy(xpath = "//a[text()=' Sign up ']")
     WebElement btnSignup;
+    @FindBy(xpath = "//a[@href='/let-car-work']")
+    WebElement linkLetTheCarWork;
 
 
 
+    public LetTheCarWorkPage clickLinkletTheCarWork(){
+        linkLetTheCarWork.click();
+        return new LetTheCarWorkPage(driver);
+    }
     public void clickBtnLogin(){
         btnLogin.click();
     }

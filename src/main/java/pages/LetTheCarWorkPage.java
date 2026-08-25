@@ -17,7 +17,8 @@ public class LetTheCarWorkPage extends BasePage{
     WebElement btnSubmit;
     @FindBy(xpath = "//a[@href='/let-car-work']")
     WebElement linkLetTheCarWork;
-    @FindBy(xpath = "//h1[text()='Let the car work']")
+    //@FindBy(xpath = "//h1[text()='Let the car work']")
+    @FindBy(xpath = "//h1[contains(text(), 'Let the car work')]")
     WebElement titleLetTheCarWork;
 
     @FindBy(xpath = "//input[@id='pickUpPlace']")
@@ -43,6 +44,10 @@ public class LetTheCarWorkPage extends BasePage{
 
 
 
+    public void clickPickUpPlace(){
+        inputPickUpPlace.click();
+    }
+
     public boolean isTitleLetTheCarWorkDisplayed(){
         return titleLetTheCarWork.isDisplayed();
     }
@@ -56,5 +61,11 @@ public class LetTheCarWorkPage extends BasePage{
         js.executeScript("document.querySelector(\"button[type='submit']\")" +
                 ".removeAttribute('disabled')");
         btnSubmit.click();
+    }
+
+    public void setInputPickUpPlace(String location)
+    {
+        inputPickUpPlace.clear();
+        inputPickUpPlace.sendKeys(location);
     }
 }

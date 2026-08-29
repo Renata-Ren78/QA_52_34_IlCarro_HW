@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -7,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import utils.enums.HeaderMenu;
 
 import java.time.Duration;
 import java.util.List;
@@ -56,8 +58,56 @@ public abstract class BasePage {
         }
     }
 
+    public void clickWait(WebElement element){
+        new WebDriverWait(driver,Duration.ofSeconds(5))
+                .until(ExpectedConditions.elementToBeClickable(element))
+                .click();
+    }
+
+    public <T extends BasePage> T clickHeaderButtons(HeaderMenu item){
+        new WebDriverWait(driver,Duration.ofSeconds(5))
+                .until(ExpectedConditions.elementToBeClickable
+                        (By.xpath(item.getLocator()))).click();
+        switch (item){
+            case LOGO -> {
+                return (T) new HomePage(driver);
+            }
+            case SEARCH -> {
+                return (T) new HomePage(driver);
+            }
+            case LOGOUT -> {
+                return (T) new HomePage(driver);
+            }
+            case LET_THE_CAR_WORK -> {
+                return (T) new LetTheCarWorkPage(driver);
+            }
+            case TERMS_OF_USE -> {
+                return (T) new TermsOfUsePage(driver);
+            }
+            case SIGN_UP -> {
+                return (T) new LoginPage(driver);
+            }
+            case LOGIN -> {
+                return (T) new LoginPage(driver);
+            }
+            case DELETE_ACCOUNT -> {
+                return (T) new PopUpPage(driver);
+            }
+            default -> throw new IllegalArgumentException("Wrong item");
+
+        }
+    }
+
 
     public boolean isElementDisplayed(WebElement element) {
         return element.isDisplayed();
     }
+
+
+
+
+
 }
+
+
+

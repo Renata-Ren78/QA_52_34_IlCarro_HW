@@ -1,5 +1,6 @@
 package pages;
 
+import dto.Car;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,6 +16,7 @@ public class LetTheCarWorkPage extends BasePage{
 
     @FindBy(xpath = "//button[@type='submit']")
     WebElement btnSubmit;
+
     @FindBy(xpath = "//a[@href='/let-car-work']")
     WebElement linkLetTheCarWork;
     //@FindBy(xpath = "//h1[text()='Let the car work']")
@@ -22,30 +24,47 @@ public class LetTheCarWorkPage extends BasePage{
     WebElement titleLetTheCarWork;
 
     @FindBy(xpath = "//input[@id='pickUpPlace']")
-    WebElement inputPickUpPlace;
+    WebElement inputLocation;
     @FindBy(xpath = "//input[@id='make']")
     WebElement inputMake;
     @FindBy(xpath = "//input[@id='model']")
     WebElement inputModel;
     @FindBy(xpath = "//input[@id='year']")
     WebElement inputYear;
-    @FindBy(xpath = "//input[@id='fuel']")
+    @FindBy(xpath = "//select[@id='fuel']")
     WebElement inputFuel;
-    @FindBy(xpath = "//input[@id='fuel']")
+    @FindBy(xpath = "//input[@id='seats']")
     WebElement inputSeats;
     @FindBy(xpath = "//input[@id='class']")
-    WebElement inputClass;
+    WebElement inputCarClass;
     @FindBy(xpath = "//input[@id='serialNumber']")
-    WebElement inputserialNumber;
+    WebElement inputSerialNumber;
     @FindBy(xpath = "//input[@id='price']")
     WebElement inputPrice;
     @FindBy(xpath = "//textarea[@id='about']")
-    WebElement inputTextArea;
+    WebElement inputAbout;
+
+
+    public void typeAddNewCarForm(Car car){
+        inputLocation.sendKeys(car.getCity());
+        inputMake.sendKeys(car.getManufacture());
+        inputModel.sendKeys(car.getModel());
+        inputYear.sendKeys(car.getYear());
+        inputFuel.sendKeys(car.getFuel());
+        inputSeats.sendKeys(car.getSeats().toString());
+        inputCarClass.sendKeys(car.getCarClass());
+        inputSerialNumber.sendKeys(car.getSerialNumber());
+        inputPrice.sendKeys(car.getPricePerDay().toString());
+        inputAbout.sendKeys(car.getAbout());
+
+
+
+    }
 
 
 
     public void clickPickUpPlace(){
-        inputPickUpPlace.click();
+        inputLocation.click();
     }
 
     public boolean isTitleLetTheCarWorkDisplayed(){
@@ -65,7 +84,7 @@ public class LetTheCarWorkPage extends BasePage{
 
     public void setInputPickUpPlace(String location)
     {
-        inputPickUpPlace.clear();
-        inputPickUpPlace.sendKeys(location);
+        inputLocation.clear();
+        inputLocation.sendKeys(location);
     }
 }

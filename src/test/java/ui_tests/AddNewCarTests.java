@@ -3,6 +3,7 @@ package ui_tests;
 import dto.Car;
 import dto.UserLombok;
 import manager.AppManager;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.HomePage;
@@ -12,6 +13,8 @@ import pages.PopUpPage;
 
 import utils.enums.HeaderMenu;
 
+import javax.swing.*;
+
 import static utils.PropertiesReader.getProperty;
 import static utils.CarFactory.*;
 
@@ -19,6 +22,7 @@ public class AddNewCarTests extends AppManager {
 
     LoginPage loginPage;
     LetTheCarWorkPage letTheCarWorkPage;
+
 
 
     @BeforeMethod
@@ -47,8 +51,21 @@ public class AddNewCarTests extends AppManager {
         Car car = positiveCar();
         System.out.println(car);
         letTheCarWorkPage.typeAddNewCarForm(car);
+        letTheCarWorkPage.clickBtnSubmitEithJS();
+        PopUpPage popup = new PopUpPage(getDriver());
+
+        Assert.assertFalse(popup.isTextInPopUpMessagePresent("{\"city\":\"must not be blank\"}"));
+
+        //popup.isTextInPopUpMessagePresent("{\"city\":\"must not be blank\"}");
+
+
+
+       // System.out.println("Button is " + letTheCarWorkPage.isBtnSubmitEnabled());
+        //Assert.assertFalse(letTheCarWorkPage.isBtnSubmitEnabled());
 
     }
+
+
 
 
 

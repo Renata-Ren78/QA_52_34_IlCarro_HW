@@ -18,6 +18,12 @@ public class PopUpPage extends BasePage {
     @FindBy(xpath = "//button[text()='Ok']")
     WebElement btnOk;
 
+    //@FindBy(xpath = "//h1[contains(text(), 'Car adding failed')]")
+    //WebElement popUpCarMessage;
+
+
+
+
 
 
     public boolean isTextInPopUpMessagePresent(String text){

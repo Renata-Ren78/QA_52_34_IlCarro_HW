@@ -63,6 +63,11 @@ public class LetTheCarWorkPage extends BasePage{
 
 
 
+    public boolean isBtnSubmitEnabled(){
+        return btnSubmit.isEnabled();
+    }
+
+
     public void clickPickUpPlace(){
         inputLocation.click();
     }

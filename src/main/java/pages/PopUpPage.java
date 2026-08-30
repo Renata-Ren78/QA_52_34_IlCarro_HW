@@ -14,9 +14,9 @@ public class PopUpPage extends BasePage {
 
     @FindBy(xpath = "//mat-dialog-container//h2")
     WebElement popUpMessage;
-
     @FindBy(xpath = "//button[text()='Ok']")
     WebElement btnOk;
+
 
     //@FindBy(xpath = "//h1[contains(text(), 'Car adding failed')]")
     //WebElement popUpCarMessage;

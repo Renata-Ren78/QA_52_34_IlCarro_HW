@@ -1,12 +1,16 @@
 package pages;
 
 import dto.Car;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
+import utils.enums.Fuel;
+
+import java.io.File;
 
 public class LetTheCarWorkPage extends BasePage{
     public LetTheCarWorkPage (WebDriver driver) {
@@ -43,6 +47,8 @@ public class LetTheCarWorkPage extends BasePage{
     WebElement inputPrice;
     @FindBy(xpath = "//textarea[@id='about']")
     WebElement inputAbout;
+    @FindBy(id = "photos")
+    WebElement inputImage;
 
 
     public void typeAddNewCarForm(Car car){
@@ -50,8 +56,10 @@ public class LetTheCarWorkPage extends BasePage{
         inputMake.sendKeys(car.getManufacture());
         inputModel.sendKeys(car.getModel());
         inputYear.sendKeys(car.getYear());
-        inputFuel.sendKeys(car.getFuel());
+        chooseFuel(car.getFuel());
+
         inputSeats.sendKeys(car.getSeats().toString());
+        //inputSeats.sendKeys(String.valueOf(car.getSeats())); - variant
         inputCarClass.sendKeys(car.getCarClass());
         inputSerialNumber.sendKeys(car.getSerialNumber());
         inputPrice.sendKeys(car.getPricePerDay().toString());
@@ -59,8 +67,18 @@ public class LetTheCarWorkPage extends BasePage{
 
 
 
+
     }
 
+    public void downloadImage(String fileName){
+        inputImage.sendKeys(new File("src/test/resources/"
+                +fileName).getAbsolutePath());
+    }
+
+    private void chooseFuel(Fuel fuel){
+        inputFuel.click();
+        driver.findElement(By.xpath(fuel.getLocator())).click();
+    }
 
 
     public boolean isBtnSubmitEnabled(){

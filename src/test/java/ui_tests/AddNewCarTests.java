@@ -51,19 +51,19 @@ public class AddNewCarTests extends AppManager {
         Car car = positiveCar();
         System.out.println(car);
         letTheCarWorkPage.typeAddNewCarForm(car);
+        letTheCarWorkPage.downloadImage("cat.jpg");
         letTheCarWorkPage.clickBtnSubmitEithJS();
-        PopUpPage popup = new PopUpPage(getDriver());
-
-        Assert.assertFalse(popup.isTextInPopUpMessagePresent("{\"city\":\"must not be blank\"}"));
+        Assert.assertTrue(new PopUpPage(getDriver())
+                .isTextInPopUpMessagePresent("{\"city\":\"must not be blank\"}"));
+        //PopUpPage popup = new PopUpPage(getDriver());
+        //Assert.assertTrue(popup.isTextInPopUpMessagePresent("{\"city\":\"must not be blank\"}"));
 
         //popup.isTextInPopUpMessagePresent("{\"city\":\"must not be blank\"}");
-
-
-
-       // System.out.println("Button is " + letTheCarWorkPage.isBtnSubmitEnabled());
+        // System.out.println("Button is " + letTheCarWorkPage.isBtnSubmitEnabled());
         //Assert.assertFalse(letTheCarWorkPage.isBtnSubmitEnabled());
 
     }
+
 
 
 

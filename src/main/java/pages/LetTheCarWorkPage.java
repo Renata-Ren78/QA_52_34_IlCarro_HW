@@ -51,24 +51,34 @@ public class LetTheCarWorkPage extends BasePage{
     WebElement inputImage;
 
 
+    public void clickAllFields(){
+        inputLocation.click();
+        inputMake.click();
+        inputModel.click();
+        inputYear.click();
+        inputSeats.click();
+        inputSeats.click();
+        inputCarClass.click();
+        inputSerialNumber.click();
+        inputPrice.click();
+        inputAbout.click();
+    }
+
+
     public void typeAddNewCarForm(Car car){
         inputLocation.sendKeys(car.getCity());
         inputMake.sendKeys(car.getManufacture());
         inputModel.sendKeys(car.getModel());
         inputYear.sendKeys(car.getYear());
         chooseFuel(car.getFuel());
-
         inputSeats.sendKeys(car.getSeats().toString());
         //inputSeats.sendKeys(String.valueOf(car.getSeats())); - variant
         inputCarClass.sendKeys(car.getCarClass());
         inputSerialNumber.sendKeys(car.getSerialNumber());
         inputPrice.sendKeys(car.getPricePerDay().toString());
         inputAbout.sendKeys(car.getAbout());
-
-
-
-
     }
+
 
     public void downloadImage(String fileName){
         inputImage.sendKeys(new File("src/test/resources/"

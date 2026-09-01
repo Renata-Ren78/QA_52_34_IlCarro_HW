@@ -17,18 +17,23 @@ public class PopUpPage extends BasePage {
     @FindBy(xpath = "//button[text()='Ok']")
     WebElement btnOk;
 
-
-    //@FindBy(xpath = "//h1[contains(text(), 'Car adding failed')]")
-    //WebElement popUpCarMessage;
-
+    @FindBy(xpath = "//h1[contains(text(), 'Car adding failed')]")
+    WebElement popUpCarAddingFailed;
 
 
 
 
+
+
+
+
+
+    public boolean isTextCarAddingFailedPresents(String text){
+        return isTextInElementPresent(popUpCarAddingFailed,text);
+    }
 
     public boolean isTextInPopUpMessagePresent(String text){
         return isTextInElementPresent(popUpMessage,text);
-
     }
 
     public void clickBtnOk(){

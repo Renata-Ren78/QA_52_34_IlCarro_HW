@@ -11,6 +11,7 @@ import pages.LetTheCarWorkPage;
 import pages.LoginPage;
 import pages.PopUpPage;
 
+import utils.enums.Fuel;
 import utils.enums.HeaderMenu;
 
 import javax.swing.*;
@@ -22,7 +23,6 @@ public class AddNewCarTests extends AppManager {
 
     LoginPage loginPage;
     LetTheCarWorkPage letTheCarWorkPage;
-
 
 
     @BeforeMethod
@@ -47,7 +47,7 @@ public class AddNewCarTests extends AppManager {
     }
 
     @Test
-    public void addNewCarPositiveTest(){
+    public void addNewCarPositiveTest() {
         Car car = positiveCar();
         System.out.println(car);
         letTheCarWorkPage.typeAddNewCarForm(car);
@@ -61,13 +61,68 @@ public class AddNewCarTests extends AppManager {
         //popup.isTextInPopUpMessagePresent("{\"city\":\"must not be blank\"}");
         // System.out.println("Button is " + letTheCarWorkPage.isBtnSubmitEnabled());
         //Assert.assertFalse(letTheCarWorkPage.isBtnSubmitEnabled());
-
     }
 
+    // HW 09.01
+    @Test
+    public void addNewCarNegativeOnlyClickBtnSubmitTest() {
+        letTheCarWorkPage.clickBtnSubmitEithJS();
+        Assert.assertTrue(new PopUpPage(getDriver())
+                .isTextCarAddingFailedPresents("Car adding failed"));
+    }
 
+    // HW 09.02
+    @Test
+    public void addNewCarNegativeClickAllFieldsAndBtnSubmitTest() {
+        letTheCarWorkPage.clickAllFields();
+        letTheCarWorkPage.clickBtnSubmitEithJS();
+        Assert.assertTrue(new PopUpPage(getDriver())
+                .isTextCarAddingFailedPresents("Car adding failed"));
+    }
 
+    // HW 09.03
+    @Test
+    public void addNewCarNegativeLeaveOneFieldBlancAndOtherFieldsTypeWithValidDataTest() {
+        Car car = Car.builder()
+                .city("Tel Aviv")
+                .manufacture("Toyota")
+                .model("")
+                .year("2020")
+                .fuel(Fuel.PETROL)
+                .seats(4)
+                .carClass("C")
+                .serialNumber("123456789")
+                .pricePerDay(100.00)
+                .about("Family car")
+                .build();
+        letTheCarWorkPage.typeAddNewCarForm(car);
+        letTheCarWorkPage.clickBtnSubmitEithJS();
+        Assert.assertTrue(new PopUpPage(getDriver())
+                .isTextInPopUpMessagePresent
+                        ("city\":\"must not be blank\",\"model\":\"must not be blank"));
+    }
 
-
+    // HW 09.04
+    @Test
+    public void addNewCarNegativeTypeWrongYearAndOtherFieldsTypeWithValidDataTest() {
+        Car car = Car.builder()
+                .city("Tel Aviv")
+                .manufacture("Toyota")
+                .model("Corolla")
+                .year("abcd")
+                .fuel(Fuel.PETROL)
+                .seats(4)
+                .carClass("C")
+                .serialNumber("123456789")
+                .pricePerDay(100.00)
+                .about("Family car")
+                .build();
+        letTheCarWorkPage.typeAddNewCarForm(car);
+        letTheCarWorkPage.clickBtnSubmitEithJS();
+        Assert.assertTrue(new PopUpPage(getDriver())
+                .isTextInPopUpMessagePresent
+                        ("{\"year\":\"must not be blank\",\"city\":\"must not be blank\"}"));
+    }
 
 
 }

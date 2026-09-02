@@ -5,15 +5,18 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
+
+import java.time.LocalDate;
+
 import static utils.PropertiesReader.*;
 
-public class HomePage extends BasePage{
-    public HomePage(WebDriver driver){
+public class HomePage extends BasePage {
+    public HomePage(WebDriver driver) {
         setDriver(driver);
         //driver.get("https://ilcarro.web.app/search");
-        driver.get(getProperty("base.properties","baseUrl"));
+        driver.get(getProperty("base.properties", "baseUrl"));
         PageFactory.initElements(new AjaxElementLocatorFactory
-                (driver,10),this);
+                (driver, 10), this);
     }
 
     @FindBy(xpath = "//a[text()=' Log in ']")
@@ -23,20 +26,45 @@ public class HomePage extends BasePage{
     @FindBy(xpath = "//a[@href='/let-car-work']")
     WebElement linkLetTheCarWork;
 
+    @FindBy(id = "city")
+    WebElement inputCity;
+    @FindBy(id = "dates")
+    WebElement inputDates;
+    @FindBy(xpath = "//button[@type='submit']")
+    WebElement btnYalla;
 
 
-    public LetTheCarWorkPage clickLinkletTheCarWork(){
+    public LetTheCarWorkPage clickLinkletTheCarWork() {
         linkLetTheCarWork.click();
         return new LetTheCarWorkPage(driver);
     }
-    public void clickBtnLogin(){
+
+    public void clickBtnLogin() {
         btnLogin.click();
     }
 
-    public void clickBtnSignUp(){
+    public void clickBtnSignUp() {
         btnSignup.click();
     }
 
+    public void typeSearchForm(String city, LocalDate startDate,
+                               LocalDate endDate) {
+        inputCity.sendKeys(city);
+        System.out.println(startDate);
+        System.out.println(endDate);
+        // 2026-09-04    9/4/206 - 9/10/2026
+        System.out.println(startDate.getMonthValue());
+        System.out.println(startDate.getDayOfMonth());
+        String dates = startDate.getMonthValue() + "/"
+                + startDate.getDayOfMonth() + "/"
+                + startDate.getYear() + " - "
+                + endDate.getMonthValue() + "/"
+                + endDate.getDayOfMonth() + "/"
+                + endDate.getYear();
+        System.out.println(dates);
+        inputDates.sendKeys(dates);
+
+    }
 
 
 }

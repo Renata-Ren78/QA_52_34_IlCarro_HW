@@ -16,6 +16,8 @@ import utils.enums.HeaderMenu;
 
 import javax.swing.*;
 
+import java.time.LocalDate;
+
 import static utils.PropertiesReader.getProperty;
 import static utils.CarFactory.*;
 
@@ -62,6 +64,18 @@ public class AddNewCarTests extends AppManager {
         // System.out.println("Button is " + letTheCarWorkPage.isBtnSubmitEnabled());
         //Assert.assertFalse(letTheCarWorkPage.isBtnSubmitEnabled());
     }
+
+    @Test
+    public void addNewCarNegativeWrongYearTest() {
+        Car car = positiveCar();
+        car.setYear(String.valueOf(LocalDate.now().getYear() + 1));
+        System.out.println(car);
+        letTheCarWorkPage.typeAddNewCarForm(car);
+        letTheCarWorkPage.downloadImage("cat.jpg");
+        Assert.assertTrue(letTheCarWorkPage.isTextInErrorPresent("Wrong year"));
+    }
+
+
 
     // HW 09.01
     @Test

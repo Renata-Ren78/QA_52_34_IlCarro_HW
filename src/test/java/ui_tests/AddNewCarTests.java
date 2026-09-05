@@ -72,8 +72,20 @@ public class AddNewCarTests extends AppManager {
         System.out.println(car);
         letTheCarWorkPage.typeAddNewCarForm(car);
         letTheCarWorkPage.downloadImage("cat.jpg");
+        //letTheCarWorkPage.clickBtnSubmitEithJS();
         Assert.assertTrue(letTheCarWorkPage.isTextInErrorPresent("Wrong year"));
     }
+
+    @Test
+    public void addNewCarNegativeWrongYearNotDigitTest() {
+        Car car = positiveCar();
+        car.setYear("a");
+        System.out.println(car);
+        letTheCarWorkPage.typeAddNewCarForm(car);
+        letTheCarWorkPage.downloadImage("cat.jpg");
+        Assert.assertTrue(letTheCarWorkPage.isTextInErrorPresent("Year required"));
+    }
+
 
 
 

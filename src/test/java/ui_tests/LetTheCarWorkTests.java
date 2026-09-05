@@ -4,13 +4,15 @@ import dto.UserLombok;
 import manager.AppManager;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
-
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.LetTheCarWorkPage;
 import pages.LoginPage;
+import utils.TestNGListener;
 import static utils.PropertiesReader.*;
 
+@Listeners(TestNGListener.class)
 
 public class LetTheCarWorkTests extends AppManager {
     LetTheCarWorkPage letTheCarWorkPage;

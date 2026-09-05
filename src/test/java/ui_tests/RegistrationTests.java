@@ -14,9 +14,8 @@ import pages.PopUpPage;
 import pages.RegistrationPage;
 import utils.TestNGListener;
 import utils.UserFactory;
-
-
 import static utils.UserFactory.*;
+
 @Listeners(TestNGListener.class)
 
 public final class RegistrationTests extends AppManager {

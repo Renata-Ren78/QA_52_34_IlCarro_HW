@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -32,6 +33,8 @@ public class HomePage extends BasePage {
     WebElement inputDates;
     @FindBy(xpath = "//button[@type='submit']")
     WebElement btnYalla;
+    @FindBy(xpath = "//div[text()='Dates are required']")
+    WebElement requiredMessageDatesAreRequired;
 
 
     public LetTheCarWorkPage clickLinkletTheCarWork() {
@@ -50,20 +53,42 @@ public class HomePage extends BasePage {
     public void typeSearchForm(String city, LocalDate startDate,
                                LocalDate endDate) {
         inputCity.sendKeys(city);
-        System.out.println(startDate);
-        System.out.println(endDate);
-        // 2026-09-04    9/4/206 - 9/10/2026
-        System.out.println(startDate.getMonthValue());
-        System.out.println(startDate.getDayOfMonth());
-        String dates = startDate.getMonthValue() + "/"
-                + startDate.getDayOfMonth() + "/"
-                + startDate.getYear() + " - "
-                + endDate.getMonthValue() + "/"
-                + endDate.getDayOfMonth() + "/"
-                + endDate.getYear();
-        System.out.println(dates);
-        inputDates.sendKeys(dates);
+        if(startDate != null && endDate != null) {
+            System.out.println(startDate);
+            System.out.println(endDate);
+            // 2026-09-04    9/4/206 - 9/10/2026
+            System.out.println(startDate.getMonthValue());
+            System.out.println(startDate.getDayOfMonth());
+            String dates = startDate.getMonthValue() + "/"
+                    + startDate.getDayOfMonth() + "/"
+                    + startDate.getYear() + " - "
+                    + endDate.getMonthValue() + "/"
+                    + endDate.getDayOfMonth() + "/"
+                    + endDate.getYear();
+            System.out.println(dates);
+            inputDates.sendKeys(dates);
+        }
+        else
+        {
+            inputDates.sendKeys("");
+        }
+    }
 
+    public void typeSearchFormNew(String city,String dates){
+        inputCity.sendKeys(city);
+        inputDates.sendKeys(dates);
+    }
+
+
+    public void clickBtnYalla() {
+        btnYalla.click();
+    }
+
+    public void clickBtnSubmitEithJS(){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("document.querySelector(\"button[type='submit']\")" +
+                ".removeAttribute('disabled')");
+        btnYalla.click();
     }
 
 

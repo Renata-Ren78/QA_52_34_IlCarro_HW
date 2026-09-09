@@ -24,7 +24,47 @@ public class SearchCarTests  extends AppManager {
         LocalDate startDate = LocalDate.now().plusDays(2);
         LocalDate endDate = LocalDate.now().plusDays(8);
         homePage.typeSearchForm(city,startDate,endDate);
+        homePage.clickBtnSubmitEithJS();
+        Assert.assertTrue(homePage.isUrlContainsText("results"));
     }
+
+    @Test
+    public void searchCarWithCalendarPositiveTest(){
+        String city = "Haifa";
+        LocalDate startDate = LocalDate.now().plusDays(2);
+        LocalDate endDate = LocalDate.now().plusDays(8);
+        homePage.typeSearchFormWithCalendar(city,startDate,endDate);
+        homePage.clickBtnSubmitEithJS();
+        Assert.assertTrue(homePage.isUrlContainsText("results"));
+    }
+
+    @Test
+    public void searchCarNegativeSameStartDatesTest(){
+        String city = "Haifa";
+        LocalDate startDate = LocalDate.now();
+        LocalDate endDate = LocalDate.now();
+        homePage.typeSearchForm(city,startDate,endDate);
+        homePage.clickBtnSubmitEithJS();
+        Assert.assertTrue(homePage.isTextInErrorPresent
+                ("You can't book car for less than a day"));
+    }
+
+
+    @Test
+    public void searchCarNegativeMoreOneYearTest(){
+        String city = "Haifa";
+        LocalDate startDate = LocalDate.now();
+        LocalDate endDate = LocalDate.now()
+                .plusYears(1).plusDays(1);
+        homePage.typeSearchForm(city,startDate,endDate);
+        homePage.clickBtnSubmitEithJS();
+        Assert.assertTrue(homePage.isTextInErrorPresent
+                ("You can't pick date after one year"));
+    }
+
+
+
+
 
     // HW 11.01
     @Test

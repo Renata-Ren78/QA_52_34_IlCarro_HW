@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -35,6 +36,8 @@ public class HomePage extends BasePage {
     WebElement btnYalla;
     @FindBy(xpath = "//div[text()='Dates are required']")
     WebElement requiredMessageDatesAreRequired;
+    @FindBy(xpath = "//button[@aria-label='Choose month and year']")
+    WebElement btnYearOneCalendar;
 
 
     public LetTheCarWorkPage clickLinkletTheCarWork() {
@@ -53,7 +56,7 @@ public class HomePage extends BasePage {
     public void typeSearchForm(String city, LocalDate startDate,
                                LocalDate endDate) {
         inputCity.sendKeys(city);
-        if(startDate != null && endDate != null) {
+        if (startDate != null && endDate != null) {
             System.out.println(startDate);
             System.out.println(endDate);
             // 2026-09-04    9/4/206 - 9/10/2026
@@ -67,14 +70,52 @@ public class HomePage extends BasePage {
                     + endDate.getYear();
             System.out.println(dates);
             inputDates.sendKeys(dates);
-        }
-        else
-        {
+        } else {
             inputDates.sendKeys("");
         }
     }
 
-    public void typeSearchFormNew(String city,String dates){
+
+    public void typeSearchFormWithCalendar(String city, LocalDate startDate,
+                                           LocalDate endDate) {
+        inputCity.sendKeys(city);
+        inputDates.click();
+        typeCalendar(startDate);
+        typeCalendar(endDate);
+    }
+
+
+    private void typeCalendar(LocalDate date) {
+        btnYearOneCalendar.click();
+        //td[@aria-label='2026']
+        String year = Integer.toString(date.getYear());
+        WebElement btnYear = driver.findElement
+                (By.xpath("//td[@aria-label='" + year + "']"));
+        btnYear.click();
+        //td[@aria-label="November 2026"]   //  "//td[@aria-label='"+month+" "+year+"']"
+        System.out.println(date.getMonth());
+        String month = createMonth(date.getMonth().toString());
+        System.out.println(month);
+        WebElement btnMonth = driver.findElement
+                (By.xpath("//td[@aria-label='" + month + " " + year + "']"));
+        btnMonth.click();
+        // //td[@aria-label="September 11, 2026"]
+        System.out.println(date.getDayOfMonth());
+        String day = String.valueOf(date.getDayOfMonth());
+        WebElement btnDay = driver.findElement
+                (By.xpath("//td[@aria-label='" + month + " " + day + ", " + year + "']"));
+        btnDay.click();
+    }
+
+    // SEPTEMBER --> September
+    private String createMonth(String month) {
+        return new StringBuilder().append(month.substring(0, 1)
+                .toUpperCase()).append(month.substring(1)
+                .toLowerCase()).toString();
+    }
+
+
+    public void typeSearchFormNew(String city, String dates) {
         inputCity.sendKeys(city);
         inputDates.sendKeys(dates);
     }
@@ -84,7 +125,7 @@ public class HomePage extends BasePage {
         btnYalla.click();
     }
 
-    public void clickBtnSubmitEithJS(){
+    public void clickBtnSubmitEithJS() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("document.querySelector(\"button[type='submit']\")" +
                 ".removeAttribute('disabled')");

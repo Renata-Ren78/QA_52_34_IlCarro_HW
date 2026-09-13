@@ -9,6 +9,8 @@ import pages.SearchResultPage;
 
 import java.time.LocalDate;
 
+import static java.lang.Thread.sleep;
+
 public class SearchCarTests  extends AppManager {
     HomePage homePage;
 
@@ -98,7 +100,46 @@ public class SearchCarTests  extends AppManager {
     }
 
 
+    // HW 12.01
+    @Test
+    public void searchNegativeSameDatesWithCalendarTest1(){
+        String city = "Haifa";
+
+        LocalDate startDate = LocalDate.now();
+        LocalDate endDate = LocalDate.now();
+
+        homePage.typeSearchFormWithCalendar(city, startDate, endDate);
+        homePage.clickBtnSubmitEithJS();
+
+        Assert.assertTrue(homePage.isTextInErrorPresent
+                ("You can't book car for less than a day"));
+    }
+
+    // HW 12.02
+    @Test
+    public void searchNegativeSameDatesWithCalendarTest2(){
+        String city = "Haifa";
+
+        LocalDate startDate = LocalDate.now().plusDays(5);
+        LocalDate endDate = LocalDate.now().plusDays(2);
+
+        homePage.typeSearchFormWithCalendar(city, startDate, endDate);
+        homePage.clickBtnSubmitEithJS();
+
+
+
+    }
+
+
 }
 
+
+
+
+// try {
+//sleep(1000000);
+//        } catch (InterruptedException e) {
+//        throw new RuntimeException(e);
+//        }
 
 

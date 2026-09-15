@@ -11,41 +11,41 @@ import java.time.LocalDate;
 
 import static java.lang.Thread.sleep;
 
-public class SearchCarTests  extends AppManager {
+public class SearchCarTests extends AppManager {
     HomePage homePage;
 
     @BeforeMethod
-    public void openHomePage(){
+    public void openHomePage() {
         homePage = new HomePage(getDriver());
     }
 
 
     @Test
-    public void searchCarPositiveTest(){
+    public void searchCarPositiveTest() {
         String city = "Haifa";
         LocalDate startDate = LocalDate.now().plusDays(2);
         LocalDate endDate = LocalDate.now().plusDays(8);
-        homePage.typeSearchForm(city,startDate,endDate);
+        homePage.typeSearchForm(city, startDate, endDate);
         homePage.clickBtnSubmitEithJS();
         Assert.assertTrue(homePage.isUrlContainsText("results"));
     }
 
     @Test
-    public void searchCarWithCalendarPositiveTest(){
+    public void searchCarWithCalendarPositiveTest() {
         String city = "Haifa";
         LocalDate startDate = LocalDate.now().plusDays(2);
         LocalDate endDate = LocalDate.now().plusDays(8);
-        homePage.typeSearchFormWithCalendar(city,startDate,endDate);
+        homePage.typeSearchFormWithCalendar(city, startDate, endDate);
         homePage.clickBtnSubmitEithJS();
         Assert.assertTrue(homePage.isUrlContainsText("results"));
     }
 
     @Test
-    public void searchCarNegativeSameStartDatesTest(){
+    public void searchCarNegativeSameStartDatesTest() {
         String city = "Haifa";
         LocalDate startDate = LocalDate.now();
         LocalDate endDate = LocalDate.now();
-        homePage.typeSearchForm(city,startDate,endDate);
+        homePage.typeSearchForm(city, startDate, endDate);
         homePage.clickBtnSubmitEithJS();
         Assert.assertTrue(homePage.isTextInErrorPresent
                 ("You can't book car for less than a day"));
@@ -53,28 +53,25 @@ public class SearchCarTests  extends AppManager {
 
 
     @Test
-    public void searchCarNegativeMoreOneYearTest(){
+    public void searchCarNegativeMoreOneYearTest() {
         String city = "Haifa";
         LocalDate startDate = LocalDate.now();
         LocalDate endDate = LocalDate.now()
                 .plusYears(1).plusDays(1);
-        homePage.typeSearchForm(city,startDate,endDate);
+        homePage.typeSearchForm(city, startDate, endDate);
         homePage.clickBtnSubmitEithJS();
         Assert.assertTrue(homePage.isTextInErrorPresent
                 ("You can't pick date after one year"));
     }
 
 
-
-
-
     // HW 11.01
     @Test
-    public void searchCarPositiveNewTest(){
+    public void searchCarPositiveNewTest() {
         String city = "Haifa";
         LocalDate startDate = LocalDate.now().plusDays(2);
         LocalDate endDate = LocalDate.now().plusDays(8);
-        homePage.typeSearchForm(city,startDate,endDate);
+        homePage.typeSearchForm(city, startDate, endDate);
         homePage.clickBtnSubmitEithJS();
         Assert.assertTrue(new SearchResultPage(getDriver())
                 .validateTextInSearchResultPage("No available cars in"));
@@ -91,10 +88,10 @@ public class SearchCarTests  extends AppManager {
 
     // HW 11.03
     @Test
-    public void searchCarInvalidDateNegativeTest(){
-        String city ="Beersheva";
+    public void searchCarInvalidDateNegativeTest() {
+        String city = "Beersheva";
         String dates = "123";
-        homePage.typeSearchFormNew(city,dates);
+        homePage.typeSearchFormNew(city, dates);
         homePage.clickBtnSubmitEithJS();
         Assert.assertTrue(homePage.isTextInErrorPresent("Dates are required"));
     }
@@ -102,7 +99,7 @@ public class SearchCarTests  extends AppManager {
 
     // HW 12.01
     @Test
-    public void searchNegativeSameDatesWithCalendarTest1(){
+    public void searchNegativeSameDatesWithCalendarTest1() {
         String city = "Haifa";
 
         LocalDate startDate = LocalDate.now();
@@ -117,7 +114,7 @@ public class SearchCarTests  extends AppManager {
 
     // HW 12.02
     @Test
-    public void searchNegativeSameDatesWithCalendarTest2(){
+    public void searchNegativeSameDatesWithCalendarTest2() {
         String city = "Haifa";
 
         LocalDate startDate = LocalDate.now().plusDays(5);
@@ -125,21 +122,15 @@ public class SearchCarTests  extends AppManager {
 
         homePage.typeSearchFormWithCalendar(city, startDate, endDate);
         homePage.clickBtnSubmitEithJS();
-
-
-
     }
 
 
 }
 
 
-
-
 // try {
-//sleep(1000000);
+//sleep(20000);
 //        } catch (InterruptedException e) {
 //        throw new RuntimeException(e);
 //        }
-
 

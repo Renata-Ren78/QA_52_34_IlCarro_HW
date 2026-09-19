@@ -42,8 +42,8 @@ public class AppManager {
             driver = new EdgeDriver();
         }
 
-        //driver.manage().window().maximize();
-        driver.manage().window().setSize(new Dimension(1920, 1980));
+        driver.manage().window().maximize();
+//        driver.manage().window().setSize(new Dimension(1920, 1980));
         logger.info("Start testing with method -->"+ method.getName());
         WebDriverListener webDriverListener = new WDListener();
         driver = new EventFiringDecorator<>(webDriverListener).decorate(driver);

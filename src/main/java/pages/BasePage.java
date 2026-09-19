@@ -21,7 +21,7 @@ public abstract class BasePage {
     public void setDriver(WebDriver wd) {driver = wd;}
 
 
-    @FindBy(xpath = "//div[@class='error']")
+    @FindBy(xpath = "//div[@class='error' or '@class=error ng-star-inserted']")
     List<WebElement> listErrors;
 
 

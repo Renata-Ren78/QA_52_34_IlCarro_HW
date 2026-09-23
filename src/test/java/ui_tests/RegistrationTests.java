@@ -29,7 +29,7 @@ public final class RegistrationTests extends AppManager {
         registrationPage = new RegistrationPage(getDriver());
     }
 
-    @Test(groups = {"smoke", "regress", "user", "positive"})
+    @Test
     public void registrationPositiveTest() {
         UserLombok user = positiveUser();
         registrationPage.typeRegistrationForm(user);
@@ -39,7 +39,7 @@ public final class RegistrationTests extends AppManager {
                 .isTextInPopUpMessagePresent("You are logged in"));
     }
 
-    @Test
+    @Test(groups = {"smoke", "regress", "user", "positive"})
     public void registrationPositiveWithJSTest() {
         UserLombok user = positiveUser();
         registrationPage.typeRegistrationForm(user);

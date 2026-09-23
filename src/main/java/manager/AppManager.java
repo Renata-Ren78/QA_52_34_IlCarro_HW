@@ -26,25 +26,23 @@ public class AppManager {
 
     public Logger logger = LoggerFactory.getLogger(AppManager.class);
 
-    static String browser =System.getProperty("browser", Browser.CHROME.browserName());
+    static String browser = System.getProperty("browser", Browser.CHROME.browserName());
 
 
     @BeforeMethod(alwaysRun = true)
     public void setup(Method method) {
         //driver = new ChromeDriver();
-        if(browser.equals(Browser.CHROME.browserName())){
+        if (browser.equals(Browser.CHROME.browserName())) {
             driver = new ChromeDriver();
-        }
-        else  if(browser.equals(Browser.FIREFOX.browserName())){
+        } else if (browser.equals(Browser.FIREFOX.browserName())) {
             driver = new FirefoxDriver();
-        }
-        else  if(browser.equals(Browser.EDGE.browserName())){
+        } else if (browser.equals(Browser.EDGE.browserName())) {
             driver = new EdgeDriver();
         }
 
         driver.manage().window().maximize();
 //        driver.manage().window().setSize(new Dimension(1920, 1980));
-        logger.info("Start testing with method -->"+ method.getName());
+        logger.info("Start testing with method -->" + method.getName());
         WebDriverListener webDriverListener = new WDListener();
         driver = new EventFiringDecorator<>(webDriverListener).decorate(driver);
     }
